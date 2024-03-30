@@ -1,18 +1,47 @@
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
-/* 1. Sum of all numbers
+/* reduce, distinct, sorted, collect
+    1. Sum of all numbers
  * 2. Try printing results
  * 3. Min of all numbers
  * 4. Square every number in list and find sum
- * 5. Find sum of all odd numbers in list*/
+ * 5. Find sum of all odd numbers in list
+ * 6. Print distinct items in list
+ * 7. Sort list
+ * 8. Reverse sort list
+ * 9. Sort on the basis of length*/
 public class FP02 {
     public static void main(String[] args) {
-        List<Integer> list = List.of(12, 6, 34, 89, 56, 45);
+        List<Integer> list = List.of(12, 6, 34, 89, 56, 45, 12, 6);
+        List<String> courses = List.of("Spring", "Spring Boot", "API", "Microservices", "AWS", "GCP", "Azure");
         System.out.println(sum(list));
         System.out.println(print(list));
         System.out.println(min(list));
         System.out.println(sumOfSquares(list));
         System.out.println(sumOfOdds(list));
+        distinct(list);
+        System.out.println(sort(list));
+        System.out.println(reverseSort(list));
+        System.out.println(sortOnTheBasisOfLength(courses));
+    }
+
+    private static List<String> sortOnTheBasisOfLength(List<String> courses) {
+        return courses.stream().sorted(Comparator.comparing(String::length)).collect(Collectors.toList());
+    }
+
+    private static List<Integer> reverseSort(List<Integer> list) {
+        return list.stream().sorted(Comparator.reverseOrder()).collect(Collectors.toList());
+    }
+
+    private static List<Integer> sort(List<Integer> list) {
+        //list.stream().sorted(Comparator.naturalOrder()).collect(Collectors.toList());
+        return list.stream().sorted().collect(Collectors.toList());
+    }
+
+    private static void distinct(List<Integer> list) {
+        list.stream().distinct().forEach(System.out::println);
     }
 
     private static int sumOfOdds(List<Integer> list) {
