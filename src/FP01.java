@@ -1,7 +1,7 @@
 import java.util.List;
 import java.util.stream.Collectors;
 
-/*Implement a few problems using structured and FP approach.
+/*Implement a few problems using structured and FP approach(focus on what to do): stream, filter, fore.
  * 1. Print list
  * 2. Print even nos
  * 3. Print courses
@@ -16,6 +16,17 @@ public class FP01 {
         printAllCourses(courses);
         printCoursesHavingSpring(courses, "Spring");
         printCoursesWithMoreThanFourLetters(courses);
+        printCubesOfOddNumbers(list);
+        printNumberOfCharsInEachCourse(courses);
+    }
+
+    private static void printNumberOfCharsInEachCourse(List<String> courses) {
+        System.out.println(courses.stream().map(course-> course+ " " + course.length()).collect(Collectors.toList()));
+    }
+
+    private static void printCubesOfOddNumbers(List<Integer> list) {
+        System.out.println(list.stream().filter(number -> number % 2 != 0)
+                .map(number -> number * number * number).collect(Collectors.toList()));
     }
 
     private static void printCoursesWithMoreThanFourLetters(List<String> courses) {
