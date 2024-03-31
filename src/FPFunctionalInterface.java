@@ -8,8 +8,9 @@ import java.util.function.Predicate;
 * Eg: filter has predicate which accepts one param and returns boolean
 * map has function which takes one param and returns whatever reqd
 * fore has consumer which takes param but doesnt return anything
-* reduce has BinaryOperator which takes 2 params and returns reqd result*/
-public class FP03 {
+* reduce has BinaryOperator which takes 2 params and returns reqd result
+* supplier which returns value but doesnt have any param*/
+public class FPFunctionalInterface {
     public static void main(String[] args) {
         List<Integer> list = List.of(12, 6, 34, 89, 56, 45, 12, 6);
         System.out.println(sum(list));
