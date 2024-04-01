@@ -4,7 +4,7 @@ import java.util.function.*;
 
 /*Functional Interface: Interface with one abstract method and can have multiple static/default method.
  * Eg: 1. filter has Predicate which accepts one param and returns boolean
- * 2. map has Function which takes one param and returns whatever reqd. Function<Integer, String> fn=x->x+" ",
+ * 2. map has Function which takes one param and returns whatever reqd(output can be of any type). Function<Integer, String> fn=x->x+" ",
  * so here first type is parameter and second is return type in Function<Integer, String>
  * 3. fore has Consumer which takes param but doesnt return anything
  * reduce has BinaryOperator which takes 2 params and returns reqd result
@@ -14,7 +14,7 @@ import java.util.function.*;
  * IntPredicate, IntSupplier. All of them represent operations using the primitives of respective class. The reason why we need
  * this is becaz we are using wrapper classes in Function<Integer> and hence there is boxing unboxing happens so to avoid that
  * we have IntFunction and similarly other classes
- * 6. BiPredicate BiFunction BiConsumer, all takes 2 params and working is same as that of respective claases. */
+ * 6. BiPredicate BiFunction BiConsumer, all takes 2 params and working is same as that of respective classes. */
 public class FPFunctionalInterface {
     public static void main(String[] args) {
         List<Integer> list = List.of(12, 6, 34, 89, 56, 45, 12, 6);
@@ -30,6 +30,31 @@ public class FPFunctionalInterface {
 
         UnaryOperator<Integer> unaryOperator = x -> 3 * x;
         System.out.println(unaryOperator.apply(10));
+
+        BiPredicate<Integer, String> biPredicate = new BiPredicate<Integer, String>() {
+            @Override
+            public boolean test(Integer integer1, String str) {
+                return integer1 > str.length();
+            }
+        };
+        System.out.println(biPredicate.test(10, "Functional Programming"));
+
+        BiFunction<Integer, String, String> biFunction = new BiFunction<Integer, String, String>() {
+            @Override
+            public String apply(Integer integer, String str) {
+                return integer + str + " ";
+            }
+        };
+        System.out.println(biFunction.apply(15, " hi"));
+
+        BiConsumer<Integer, Integer> biConsumer = new BiConsumer<Integer, Integer>() {
+            @Override
+            public void accept(Integer integer, Integer integer2) {
+                System.out.println(integer + integer2);
+                ;
+            }
+        };
+        biConsumer.accept(1, 2);
     }
 
     private static void sumOfSquaresOfEvenNumbers(List<Integer> list) {
