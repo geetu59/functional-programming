@@ -19,7 +19,11 @@ import java.util.stream.Collectors;
  * 9. max -> gets the list provided by comparator and returns last element of the list
  * 10 min -> gets the list provided by comparator and returns first element of the list. Hardly matters it is large or small
  * 11. findFirst -> the first element out of filter or sort
- * 12. findAny -> any element out of filter*/
+ * 12. findAny -> any element out of filter
+ * 13. sum -> filter and then map to find sum of values
+ * 14. average -> filter and then map to find avg of values
+ * 15. count-> count to find total number
+ * 16 groupingBy -> group by specific value of items of list*/
 @AllArgsConstructor
 @Getter
 @ToString
@@ -82,6 +86,41 @@ public class FP03CustomClass {
         System.out.println(courses.stream()
                 .filter(course -> course.getReviewScore()>95)
                 .findAny());
+
+        System.out.println(courses.stream()
+                .filter(course -> course.getReviewScore()>95)
+                .mapToInt(Course::getNumberOfStudents)
+                .sum());
+
+        System.out.println(courses.stream()
+                .filter(course -> course.getReviewScore()>95)
+                .mapToInt(Course::getNumberOfStudents)
+                .average());
+
+        System.out.println(courses.stream()
+                .filter(course -> course.getReviewScore()>95)
+                //.mapToInt(Course::getNumberOfStudents)
+                .count());
+
+        //how many courses fulfiled that criteria
+        System.out.println(courses.stream()
+                .filter(course -> course.getReviewScore()>95)
+                .mapToInt(Course::getNumberOfStudents)
+                .max());
+
+        System.out.println(courses.stream()
+                .collect(Collectors.groupingBy(course -> course.getCategory())));
+
+        System.out.println(courses.stream()
+                .collect(Collectors.groupingBy(course -> course.getCategory(), Collectors.counting())));
+
+        System.out.println(courses.stream()
+                .collect(Collectors.groupingBy(course -> course.getCategory(),
+                        Collectors.maxBy(Comparator.comparing(course -> course.getReviewScore())))));
+
+        System.out.println(courses.stream()
+                .collect(Collectors.groupingBy(course -> course.getCategory(),
+                        Collectors.mapping(course -> course.getName(), Collectors.toList()))));
     }
 
 }
