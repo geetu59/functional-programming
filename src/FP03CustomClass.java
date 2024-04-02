@@ -15,7 +15,11 @@ import java.util.stream.Collectors;
  * 6. skip(n) -> skip n values
  * 7. takeWhile() -> take items until you didnt encounter the element which doesnt match the given condition. Then you
  * stop even if you've elements which matches the condition after that
- * 8. dropWhile() -> ddrop elements until you didnt find element which fulfils the condition*/
+ * 8. dropWhile() -> ddrop elements until you didnt find element which fulfils the condition
+ * 9. max -> gets the list provided by comparator and returns last element of the list
+ * 10 min -> gets the list provided by comparator and returns first element of the list. Hardly matters it is large or small
+ * 11. findFirst -> the first element out of filter or sort
+ * 12. findAny -> any element out of filter*/
 @AllArgsConstructor
 @Getter
 @ToString
@@ -67,6 +71,17 @@ public class FP03CustomClass {
         System.out.println(courses.stream()
                 .dropWhile(course -> course.getReviewScore()>95)
                 .collect(Collectors.toList()));
+
+        System.out.println(courses.stream()
+                .max(Comparator.comparing(Course::getReviewScore).reversed()));
+        System.out.println(courses.stream()
+                .min(Comparator.comparing(Course::getReviewScore).reversed()));
+        System.out.println(courses.stream()
+                .filter(course -> course.getReviewScore()>95)
+                .findFirst());
+        System.out.println(courses.stream()
+                .filter(course -> course.getReviewScore()>95)
+                .findAny());
     }
 
 }
