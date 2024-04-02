@@ -23,7 +23,8 @@ import java.util.stream.Collectors;
  * 13. sum -> filter and then map to find sum of values
  * 14. average -> filter and then map to find avg of values
  * 15. count-> count to find total number
- * 16 groupingBy -> group by specific value of items of list*/
+ * 16 groupingBy -> group by specific value of items of list
+ * You see optional is returned as to avoid null pointer exception, it returns Optional.empty if it is empty.*/
 @AllArgsConstructor
 @Getter
 @ToString
