@@ -10,7 +10,12 @@ import java.util.stream.Collectors;
  * 1. allMatch-> if the whole list fulfils the condition
  * 2. anyMatch-> if any item of the list fulfils the condition
  * 3. noneMatch -> if none of the items fulfils the condition
- * 4. Comparator.comparing -> to sort values*/
+ * 4. Comparator.comparing -> to sort values
+ * 5. limit(n) -> show n values
+ * 6. skip(n) -> skip n values
+ * 7. takeWhile() -> take items until you didnt encounter the element which doesnt match the given condition. Then you
+ * stop even if you've elements which matches the condition after that
+ * 8. dropWhile() -> ddrop elements until you didnt find element which fulfils the condition*/
 @AllArgsConstructor
 @Getter
 @ToString
@@ -44,6 +49,23 @@ public class FP03CustomClass {
                 .sorted(Comparator.comparing(Course::getNumberOfStudents)
                         .thenComparing(Course::getReviewScore)
                         .reversed())
+                .collect(Collectors.toList()));
+
+        System.out.println(courses.stream()
+                .sorted(Comparator.comparing(Course::getReviewScore))
+                .limit(5).collect(Collectors.toList()));
+
+        System.out.println(courses.stream()
+                .sorted(Comparator.comparing(Course::getReviewScore))
+                .skip(3)
+                .collect(Collectors.toList()));
+
+        System.out.println(courses.stream()
+                .takeWhile(course -> course.getReviewScore()>95)
+                .collect(Collectors.toList()));
+
+        System.out.println(courses.stream()
+                .dropWhile(course -> course.getReviewScore()>95)
                 .collect(Collectors.toList()));
     }
 
