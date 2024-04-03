@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -6,7 +7,8 @@ import java.util.stream.LongStream;
 /* 1.create tuples with same length
  * Fn Programming helps in performance as you can run parallel streams.
  * 2. Eg of intermediate operations being lazy
- * 3. Most of the laptops have multicore processors so when we run the program, we want it to be utilised in the best way.*/
+ * 3. Most of the laptops have multicore processors so when we run the program, we want it to be utilised in the best way.
+ * 4. replaceAll and removeIf -> makes changes in current list itself*/
 public class FP05 {
     public static void main(String[] args) {
         List<String> courses = List.of("Spring", "API", "Spring Boot", "Microservices", "AWS", "GCP", "Azure");
@@ -66,5 +68,11 @@ public class FP05 {
         System.out.println(LongStream.range(0, 50000).parallel().sum());
         long now = System.currentTimeMillis();
         System.out.println(now - time);
+
+        //replaceALl and removeIf. Since List.of is immutable and hence putting it in ArrayList
+        List<String> strings = new ArrayList<>(courses);
+        strings.replaceAll(course->course.toUpperCase());
+        strings.removeIf(course->course.length()>6);
+        System.out.println(strings);
     }
 }
