@@ -2,8 +2,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.ToString;
 
+import java.awt.*;
 import java.util.Comparator;
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 /*We are trying to use lambda expressions on custom objects
@@ -24,7 +26,9 @@ import java.util.stream.Collectors;
  * 14. average -> filter and then map to find avg of values
  * 15. count-> count to find total number
  * 16 groupingBy -> group by specific value of items of list
- * You see optional is returned as to avoid null pointer exception, it returns Optional.empty if it is empty.*/
+ * You see optional is returned as to avoid null pointer exception, it returns Optional.empty if it is empty.
+ *
+ * 17. Higher order fn-> A fn which returns other fn. We can actually store method in local var, return method, pass it as param as well*/
 @AllArgsConstructor
 @Getter
 @ToString
@@ -70,11 +74,11 @@ public class FP03CustomClass {
                 .collect(Collectors.toList()));
 
         System.out.println(courses.stream()
-                .takeWhile(course -> course.getReviewScore()>95)
+                .takeWhile(course -> course.getReviewScore() > 95)
                 .collect(Collectors.toList()));
 
         System.out.println(courses.stream()
-                .dropWhile(course -> course.getReviewScore()>95)
+                .dropWhile(course -> course.getReviewScore() > 95)
                 .collect(Collectors.toList()));
 
         System.out.println(courses.stream()
@@ -82,30 +86,30 @@ public class FP03CustomClass {
         System.out.println(courses.stream()
                 .min(Comparator.comparing(Course::getReviewScore).reversed()));
         System.out.println(courses.stream()
-                .filter(course -> course.getReviewScore()>95)
+                .filter(course -> course.getReviewScore() > 95)
                 .findFirst());
         System.out.println(courses.stream()
-                .filter(course -> course.getReviewScore()>95)
+                .filter(course -> course.getReviewScore() > 95)
                 .findAny());
 
         System.out.println(courses.stream()
-                .filter(course -> course.getReviewScore()>95)
+                .filter(course -> course.getReviewScore() > 95)
                 .mapToInt(Course::getNumberOfStudents)
                 .sum());
 
         System.out.println(courses.stream()
-                .filter(course -> course.getReviewScore()>95)
+                .filter(course -> course.getReviewScore() > 95)
                 .mapToInt(Course::getNumberOfStudents)
                 .average());
 
         System.out.println(courses.stream()
-                .filter(course -> course.getReviewScore()>95)
+                .filter(course -> course.getReviewScore() > 95)
                 //.mapToInt(Course::getNumberOfStudents)
                 .count());
 
         //how many courses fulfiled that criteria
         System.out.println(courses.stream()
-                .filter(course -> course.getReviewScore()>95)
+                .filter(course -> course.getReviewScore() > 95)
                 .mapToInt(Course::getNumberOfStudents)
                 .max());
 
@@ -122,6 +126,14 @@ public class FP03CustomClass {
         System.out.println(courses.stream()
                 .collect(Collectors.groupingBy(course -> course.getCategory(),
                         Collectors.mapping(course -> course.getName(), Collectors.toList()))));
+
+        //High order fn
+        getReviewScoreGreaterThan(95);
+        getReviewScoreGreaterThan(90);
+    }
+
+    private static Predicate<Course> getReviewScoreGreaterThan(int cutoff) {
+        return course -> course.getReviewScore() > cutoff;
     }
 
 }
