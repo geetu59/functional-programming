@@ -1,10 +1,12 @@
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.LongStream;
 
 /* 1.create tuples with same length
  * Fn Programming helps in performance as you can run parallel streams.
- * 2. Eg of intermediate operations being lazy*/
+ * 2. Eg of intermediate operations being lazy
+ * 3. Most of the laptops have multicore processors so when we run the program, we want it to be utilised in the best way.*/
 public class FP05 {
     public static void main(String[] args) {
         List<String> courses = List.of("Spring", "API", "Spring Boot", "Microservices", "AWS", "GCP", "Azure");
@@ -55,5 +57,14 @@ public class FP05 {
                 .map(String::toUpperCase)
                 .peek(System.out::println)
                 .findFirst();
+
+        /*Parallel stream will take less time, as it divides the task to multiple processors. Eg: you've dual then sum of 25k is
+         * happening in one and rest is happening in other and then you are combining results. This happens in fn programming
+         * but in structural programming, you are updating sum var everytime, you are changing the state of the var and hence cant do it there*/
+        long time = System.currentTimeMillis();
+        //System.out.println(LongStream.range(0, 50000).sum());
+        System.out.println(LongStream.range(0, 50000).parallel().sum());
+        long now = System.currentTimeMillis();
+        System.out.println(now - time);
     }
 }
